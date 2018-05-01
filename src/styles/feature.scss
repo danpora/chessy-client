@@ -1,0 +1,48 @@
+$break-small: 400px;
+$break-large: 1000px;
+
+.container {
+  padding-top: 120px;
+  @media screen and (min-width: $break-large) {
+    padding-top: 80px;
+  }
+}
+
+.generateButton {
+  font-size: 30px;
+  height: 100px;
+  width: 200px;
+}
+
+.title {
+  font-size: 50px;
+  line-height: 80px;
+  @media screen and (min-width: $break-large) {
+    font-size: 30px;
+    line-height: 70px;
+  }
+}
+
+.mediumTitle {
+  font-size: 40px;
+  line-height: 60px;
+}
+
+.flexJustifyCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.flexDirectionRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexDirectionColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.iconNotificationLine {
+  margin: auto 15px;
+}
