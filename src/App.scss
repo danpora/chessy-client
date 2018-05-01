@@ -1,0 +1,69 @@
+$break-small: 400px;
+$break-large: 1000px;
+
+.mainHeaderContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between
+}
+
+.topRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+  margin-bottom: 6%;
+  @media screen and (min-width: $break-large) {
+    margin-top: 3%;
+  }
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
+  margin-top: 8%;
+  @media screen and (min-width: $break-large) {
+    font-size: 20px;
+    margin-top: 45px;
+  }
+}
+
+.logoElement {
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
+.chessyTitle {
+  font-size: 60px;
+  margin: 30px 0 auto 0;
+  @media screen and (min-width: $break-large) {
+    font-size: 30px;
+  }
+}
+
+.bottomRowElement {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.bottomWrapper {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  flex-direction: row;
+}
+
+.featureContainer {
+  display: flex;
+  justify-content: center;
+  height: 80%;
+  @media screen and (min-width: $break-large) {
+    height: 79%;
+  }
+}
