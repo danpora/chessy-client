@@ -1,0 +1,13 @@
+$break-large: 1000px;
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  @media screen and (min-width: $break-large) {
+    width: 50%;
+    margin: auto;
+  }
+
+}

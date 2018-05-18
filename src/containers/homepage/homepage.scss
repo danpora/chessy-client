@@ -1,0 +1,61 @@
+$chessy-green: rgb(195, 221, 165);
+$chessy-green-hover: rgb(195, 221, 165);
+$chessy-button-text: rgb(36, 53, 16);
+$break-large: 1000px;
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+}
+
+.homeNav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30%;
+  width: 50%;
+
+  @media screen and (min-width: $break-large) {
+    margin-top: 20%;
+  }
+  
+}
+
+.button {
+  display: flex;
+  align-items: cetner;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  background-color: $chessy-green;
+  margin-bottom: 2em;
+  border-radius: 8px;
+  color: $chessy-button-text;
+  cursor: default;
+
+  &:hover {
+    background-color: red;
+    span {
+      color: yellow;
+      cursor: default;
+    }
+  }
+
+  @media screen and (min-width: $break-large) {
+    width: 60%;
+    margin-bottom: 4em;
+  }
+}
+
+span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $chessy-button-text;
+}

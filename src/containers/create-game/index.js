@@ -2,120 +2,77 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Grid, Row, Col, Well } from 'react-bootstrap';
 import * as actions from '../../actions/createGame';
-import styles from './create-game.scss';
-import featureStyle from '../../styles/feature.scss'
-import * as Service from '../../service/socket'
-import classnames from 'classnames'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import styles from './styles.scss';
+import * as Service from '../../service/socket';
+import { WaitForPeer } from '../../components/create-game/WaitForPeer';
+import { Button } from 'react-bootstrap';
 
 class CreateGame extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.peerConnected) {
-      this.props.history.push('/game')
-    }
-  }
-
-  onCreateGameClick = () => {
-    this.props.actions.createGame('white')
-  }
+  createGame = () => {
+    this.props.actions.createGame('white');
+  };
 
   render() {
-    const containerClasses = classnames(featureStyle.container, featureStyle.centerHorizontaly)
+    if (this.props.isFetching) {
+      return <Fetching />;
+    }
+
+    if (this.props.error) {
+      return <Error />;
+    }
+
+    if (this.props.isGameCreated) {
+      return <CreateSuccess gameId={this.props.gameId} recreate={this.createGame}/>;
+    }
+
     return (
-      <div className={containerClasses}>
-        {
-          this.props.isWaitingForPeer
-            ? <WaitingForPeerView gameId={this.props.gameId} />
-            : <InitialCreateGameView
-              onCreateGameClick={this.onCreateGameClick}
-              loading={this.props.loading}
-              isWaitingForPeer={this.props.isWaitingForPeer}
-            />
-        }
-      </div>
+      <GameCreationMenu onCreate={this.createGame} onReturn={this.returnHome} />
     );
   }
 }
 
-CreateGame.propTypes = {
-  gameId: PropTypes.any.isRequired,
-  peerConnected: PropTypes.bool.isRequired
+const Fetching = () => {
+  return <h3>Loading..</h3>;
 };
 
-function InitialCreateGameView({ onCreateGameClick, loading, isWaitingForPeer }) {
-  const contentHeaderClasses = classnames(styles.marginBottom, styles.centerHorizontaly, featureStyle.title)
+const CreateSuccess = ({ gameId, recreate }) => {
   return (
-    <div className={styles.contentContainer}>
-      <Row className={contentHeaderClasses}>
-        <span>Press to create a room</span>
-      </Row>
-      <Row className={styles.centerHorizontaly}>
-        <Button
-          className={featureStyle.generateButton}
-          bsStyle={'warning'}
-          onClick={onCreateGameClick}
-          disabled={loading || isWaitingForPeer}
-        >
-          {loading ? 'Loading..' : 'Generate'}
-        </Button>
-      </Row>
+    <div>
+      <h3>game created successfully</h3>
+      <h3>gameId:{gameId}</h3>
+      <h3>recreate game</h3>
+      <Button onClick={recreate}>Recreate game</Button>
     </div>
-  )
-}
-
-function WaitingForPeerView({ gameId }) {
-  const wellRowClasses = classnames(featureStyle.flexJustifyCenter, styles.gameIdWell)
-  const waitingForPeerRowClasses = classnames(featureStyle.flexJustifyCenter, featureStyle.flexDirectionColumn)
-  const centerAndRowClasses = classnames(featureStyle.flexJustifyCenter, featureStyle.flexDirectionRow)
-  const mainHeader = classnames(centerAndRowClasses, styles.marginBottomDouble)
-  const middleHeader = classnames(centerAndRowClasses, styles.marginBottomMedium)
-  const mediumTitleHighBottomMargin = classnames(featureStyle.mediumTitle, styles.bottomMarginExtra)
-
+  );
+};
+const GameCreationMenu = (props) => {
   return (
-    <div className={featureStyle.flexDirectionColumn}>
-      <div className={mainHeader}>
-        <FontAwesomeIcon icon={["far", "check-square"]} size={'3x'} className={featureStyle.iconNotificationLine} />
-        <span className={featureStyle.mediumTitle}>Room created successfully</span>
-      </div>
-      <div className={middleHeader}>
-        <FontAwesomeIcon icon={["fas", "key"]} size={'3x'} className={featureStyle.iconNotificationLine} />
-        <span className={featureStyle.mediumTitle}>Game ID</span>
-      </div>
-      <Well className={styles.gameIdWell}>
-        <span className={styles.textAlignCenter}>{gameId}</span>
-      </Well>
-      <div className={featureStyle.flexJustifyCenter}>
-        <div className={featureStyle.flexDirectionColumn}>
-          <span className={mediumTitleHighBottomMargin}>Waiting for peer to connect..</span>
-          <FontAwesomeIcon icon={["fas", "stopwatch"]} size={'5x'} className={styles.waitingElement} spin/>
-        </div>
-      </div>
+    <div>
+      <h2>To create a new game, press the 'Generate game' button</h2>
+      <Button onClick={props.onCreate}>Generate</Button>
     </div>
-  )
-}
+  );
+};
+
+const Error = () => {
+  return <h1>Error..</h1>;
+};
 
 function mapStateToProps(state) {
   return {
     gameId: state.room.gameId,
-    loading: state.createGame.loading,
-    peerConnected: state.createGame.peerConnected,
-    isWaitingForPeer: state.createGame.isWaitingForPeer
+    isFetching: state.createGame.isFetching,
+    isGameCreated: state.createGame.isGameCreated,
+    isPeerConnected: state.createGame.isPeerConnected,
+    error: state.createGame.error,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(actions, dispatch),
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateGame);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateGame);

@@ -1,22 +1,7 @@
 $break-small: 450px;
 $break-large: 1000px;
 
-.columnOrder {
-  display: flex;
-  flex-direction: column;
-}
-
-.marginBottom {
-  margin-bottom: 50px;
-}
-
-.centerHorizontaly {
-  display: flex;
-  justify-content: center;
-}
-
-.joinButton {
-  height: 60px;
-  width: 200px;
-  font-size: 30px;
+.wrapper {
+  display: grid;
+  grid-template-rows: 33% 33% 33%;
 }
