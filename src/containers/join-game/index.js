@@ -31,12 +31,9 @@ class JoinGame extends React.Component {
   }
 
   render () {
-    const titleClasses = classnames(styles.marginBottom, featureStyle.flexJustifyCenter, featureStyle.title)
-    const featureClasses = classnames(styles.columnOrder, featureStyle.container)
-
     return (
-      <div className={featureClasses}>
-        <p align="center" className={titleClasses}>
+      <div className={styles.wrapper}>
+        <p align="center">
           To join the game,<br/>please enter game ID
         </p>
         <Form horizontal>
@@ -50,9 +47,8 @@ class JoinGame extends React.Component {
               onChange={this.updateGameId}
             />
           </FormGroup>
-          <Col className={styles.centerHorizontaly}>
+          <Col >
             <Button 
-              className={featureStyle.generateButton}
               bsStyle={'warning'}
               onClick={this.onJoin}
             > Join

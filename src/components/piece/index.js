@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './piece.css'
+import styles from './piece.scss'
 
 export const Piece = (props) => {
   const { elements, className } = props

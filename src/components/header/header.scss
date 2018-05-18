@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: fit-content;
+  margin: auto;
+}
+
+.appName {
+  display: flex;
+  align-items: flex-end;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BOARD_INDEXES, SQUARE_COLOR, NORMAL_BOARD_PARAMS } from './constants';
 import { Square } from '../square';
-import styles from './board.css';
+import styles from './board.scss';
 
 const Board = (props) => {
   const { matrix, orientation, onClick, moveOptions } = props

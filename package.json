@@ -8,6 +8,7 @@
     "@fortawesome/fontawesome-free-solid": "5.0.6",
     "@fortawesome/react-fontawesome": "0.0.17",
     "react": "16.3.2",
+    "react-addons-update": "^15.6.2",
     "react-bootstrap": "0.32.1",
     "react-dom": "16.3.2",
     "react-redux": "^5.0.7",

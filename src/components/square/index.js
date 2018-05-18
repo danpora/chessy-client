@@ -1,6 +1,6 @@
 import React from 'react';
 import { Piece } from '../piece'
-import styles from './square.css'
+import styles from './square.scss'
 
 export const Square = props => {
   const { elements } = props
