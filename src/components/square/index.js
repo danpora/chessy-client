@@ -16,11 +16,12 @@ export const Square = props => {
 
 const SquareWrap = props => {
   const highlightClass = props.highlight && styles.highlight
+  console.log('props.color::', props.color)
   
   return (
     <div 
       id={`${props.location.col}${props.location.row}`}
-      className={`${styles.square} ${styles[props.color]} ${highlightClass}`}
+      className={styles[props.color]}
       onClick={props.onClick.bind(null, {
         row: props.location.row, 
         col: props.location.col, 

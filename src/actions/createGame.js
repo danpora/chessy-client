@@ -6,7 +6,6 @@ import { signToRoom, subscribeToGame } from '../service/socket';
 export function createGame(myColor) {
   return (dispatch) => {
     dispatch(createGameRequest());
-
     return getNewGame()
       .then((response) => response.json())
       .then((json) => {

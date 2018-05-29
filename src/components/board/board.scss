@@ -1,0 +1,8 @@
+.boardContainer {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  background-color: red;
+  grid-template-columns: repeat(8, 12.5%);
+  grid-template-rows: repeat(8, 12.5%);
+}

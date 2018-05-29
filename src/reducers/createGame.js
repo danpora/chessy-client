@@ -2,7 +2,6 @@ import { handleActions } from 'redux-actions'
 import update from 'react-addons-update'
 
 const initialState = {
-  gameId: 0,
   isPeerConnected: false,
   isGameCreated: false,
   isFetching: false, 
