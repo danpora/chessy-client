@@ -1,9 +1,10 @@
-$break-large: 1000px;
+$break-large: 768px;
 
 .App {
   display: grid;
   height: 100%;
-  grid-template-rows: 15% 80% 5%;
+  grid-gap: 10px;
+  grid-template-rows: 13% 80% 5%;
   grid-template-columns: auto 90% auto;
   grid-template-areas:
   " . header . "
@@ -27,5 +28,8 @@ $break-large: 1000px;
 }
 
 .content {
+  display: flex;
+  justify-content: center;
   grid-area: content;
+  max-height: 100%;
 }
