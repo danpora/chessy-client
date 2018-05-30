@@ -16,7 +16,10 @@ import {
   Col,
   Grid,
   Well,
+  DropdownButton,
+  MenuItem,
 } from 'react-bootstrap';
+
 import * as ChessEngine from './engine';
 import * as Utils from './utils';
 import styles from './game.scss';
@@ -132,32 +135,29 @@ class Game extends React.Component {
           show={this.props.rematch.sent}
           onRematchCancel={this.onRematchCancel}
         />
-        <Board  
-            className={styles.board}
-            matrix={this.props.matrix}
-            onClick={this.onSquareClick}
-            orientation={this.props.orientation}
-            moveOptions={highlightSquares}
-          />
-        {/* <div className={styles.board} /> */}
-        <div className={styles.deadPool} />
-        <div className={styles.nav} />
-        {/* <DeadPool
-            className={styles.deadPool}
-            whites={this.props.eatenPieces.white}
-            blacks={this.props.eatenPieces.black}
-          />
-          <ChessNav
-            className={styles.nav}
-            toggleOrientation={this.toggleOrientation}
-            moves={this.props.moves}
-            myColor={this.props.myColor}
-            isPeerConnected={this.props.isPeerConnected}
-            iterate={this.iterate}
-            rematch={this.rematch}
-            history={this.props.history}
-            timer={this.props.startTime}
-          /> */}
+        <Board
+          className={styles.board}
+          matrix={this.props.matrix}
+          onClick={this.onSquareClick}
+          orientation={this.props.orientation}
+          moveOptions={highlightSquares}
+        />
+        <DeadPool
+          className={styles.deadPool}
+          whites={this.props.eatenPieces.white}
+          blacks={this.props.eatenPieces.black}
+        />
+        <ChessNav
+          className={styles.nav}
+          toggleOrientation={this.toggleOrientation}
+          moves={this.props.moves}
+          myColor={this.props.myColor}
+          isPeerConnected={this.props.isPeerConnected}
+          iterate={this.iterate}
+          rematch={this.rematch}
+          history={this.props.history}
+          timer={this.props.startTime}
+        />
       </div>
     );
   }
@@ -176,14 +176,14 @@ function ChessNav({
 }) {
   return (
     <div className={className}>
-      {/* <ButtonsBox
+      <ButtonsBox
         onClick={toggleOrientation}
         iterate={iterate}
         rematch={rematch}
         moves={moves}
         history={history}
       />
-      <GameTags
+      {/* <GameTags
         moves={moves}
         myColor={myColor}
         isPeerConnected={isPeerConnected}
@@ -197,45 +197,49 @@ function ChessNav({
 function ButtonsBox({ onClick, iterate, rematch, moves, history }) {
   return (
     <div className={styles.controlBarContent}>
-      <Button bsClass={styles.chessNavButton} onClick={onClick}>
-        <FontAwesomeIcon
-          icon={['fab', 'nintendo-switch']}
-          transform={'shrink-5'}
-          size={'2x'}
-        />
-        <span className={styles.chessNavButtonText}>Orientation</span>
-      </Button>
-      <Button bsClass={styles.chessNavButton}>
-        <FontAwesomeIcon
-          icon={['fas', 'window-close']}
-          transform={'shrink-5'}
-          size={'2x'}
-        />
-        <span className={styles.chessNavButtonText}> Resign </span>
-      </Button>
-      <Button bsClass={styles.chessNavButton} onClick={rematch}>
-        <FontAwesomeIcon
-          icon={['fas', 'redo-alt']}
-          transform={'shrink-5'}
-          size={'2x'}
-        />
-        <span className={styles.chessNavButtonText}> Rematch </span>
-      </Button>
+      <DropdownButton
+        bsStyle={'primary'}
+        noCaret
+        pullLeft
+        className={'dropdown-menu-left'}
+        title={
+          <FontAwesomeIcon icon={['fas', 'align-justify']} size={'1.5x'} />
+        }
+      >
+        <MenuItem
+          eventKey="1"
+          onClick={() => {
+            rematch;
+          }}
+        >
+          Rematch
+        </MenuItem>
+        <MenuItem eventKey="2" onClick={iterate.bind(null, -1)}>
+          Resign
+        </MenuItem>
+      </DropdownButton>
       <div className={styles.arrowsContainer}>
-        <div className={styles.arrows} onClick={iterate.bind(null, -1)}>
+        <Button className={styles.arrows} onClick={iterate.bind(null, -1)}>
           <FontAwesomeIcon
             icon={['fas', 'arrow-left']}
             transform={'shrink-5'}
           />
-        </div>
+        </Button>
 
-        <div className={styles.arrows} onClick={iterate.bind(null, 1)}>
+        <Button className={styles.arrows} onClick={iterate.bind(null, 1)}>
           <FontAwesomeIcon
             icon={['fas', 'arrow-right']}
             transform={'shrink-5'}
           />
-        </div>
+        </Button>
       </div>
+      <Button
+        bsStyle={'default'}
+        className={styles.chessNavButton}
+        onClick={onClick}
+      >
+        <FontAwesomeIcon icon={['fab', 'nintendo-switch']} size={'1.5x'} />
+      </Button>
     </div>
   );
 }
@@ -299,7 +303,7 @@ function PlayerColorCircle({ playerColor }) {
 function DeadPool({ className, whites, blacks }) {
   return (
     <Well className={className}>
-      {/* <Row className={styles.killedPiecesLine}>
+      <Row className={styles.killedPiecesLine}>
         <Col>
           {whites.map((piece) => {
             return (
@@ -322,7 +326,7 @@ function DeadPool({ className, whites, blacks }) {
             );
           })}
         </Col>
-      </Row> */}
+      </Row>
     </Well>
   );
 }
