@@ -23,9 +23,8 @@ export default handleActions({
   },
 
   'CREATE_GAME::SHOULD_START_GAME' (state, action) {
-    return update(state, {
+    return update(initialState, {
       isPeerConnected: { $set: true },
-      isGameCreated: { $set: false }
     })
   }
 

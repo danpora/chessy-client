@@ -2,13 +2,15 @@ import React from 'react';
 
 class Timer extends React.Component {
   constructor(props) {
-    super(props)
-    console.log('props.initTime::', props.initTime)
-    
+    super(props)    
     this.state ={
       initTime: props.initTime,
       elapsed: 0
     }    
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.timer);
   }
 
   componentDidMount = () => {
@@ -31,7 +33,7 @@ class Timer extends React.Component {
     const seconds = parseInt(timerInSecs % 60).toString().padStart(2, "0")
     
     return (
-      <h1>{`${hours}:${minutes}:${seconds}`}</h1>
+      <span>{`${hours}:${minutes}:${seconds}`}</span>
     );
   }
 }

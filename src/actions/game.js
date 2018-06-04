@@ -1,6 +1,7 @@
 import { RSAA } from 'redux-api-middleware'; // RSAA = '@@redux-api-middleware/RSAA'
 import * as SocketService from '../service/socket'
 import room from '../reducers/room';
+import { SERVER } from '../config'
 
 export function initiateBoard(board) {
   return {
@@ -61,7 +62,7 @@ export const setEatenPieces = selectedPiece => {
 export const iterate = (gameId, moveTo) => {
   return {
     [RSAA]: {
-      endpoint: `http://localhost:8000/game/${gameId}/board/${moveTo}`,
+      endpoint: `${SERVER}/game/${gameId}/board/${moveTo}`,
       method: 'GET',
       types: [
         {
@@ -113,7 +114,7 @@ export const rematchCancel = roomId => {
 }
 
 const moveUpdate = (roomId, socketId, description) => {
-  return fetch('http://localhost:8000/game/move', {
+  return fetch(`${SERVER}/game/move`, {
     method: 'POST',
     body: JSON.stringify({ roomId, socketId, description }),
     headers: new Headers({
