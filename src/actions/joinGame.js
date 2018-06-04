@@ -1,5 +1,6 @@
 import { signToRoom, subscribeToGame } from '../service/socket'
 import { PLAYER_COLOR_NUM } from '../containers/game/constants'
+import { SERVER } from '../config'
 
 export function updateGameId(gameId) {
   return {
@@ -47,5 +48,5 @@ const joinGameRequest = () => {
 }
 
 const validateGameEntry = (gameId) => {
-  return fetch(`http://localhost:8000/game/validateEntry?gameId=${gameId}`)
+  return fetch(`${SERVER}/game/validateEntry?gameId=${gameId}`)
 }

@@ -9,6 +9,11 @@ import { WaitForPeer } from '../../components/create-game/WaitForPeer';
 import { Button } from 'react-bootstrap';
 
 class CreateGame extends React.Component {
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.isPeerConnected) {
+      this.props.history.push('/game')      
+    }
+  }
   createGame = () => {
     this.props.actions.createGame('white');
   };

@@ -1,5 +1,6 @@
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 import room from '../reducers/room';
+import { SERVER } from '../config';
 
 export const subscribeToGame = (dispatch) => {
   dispatch({ type: 'ROOM::SET_SOCKET_ID', payload: { socketId: socket.id}})  
@@ -59,7 +60,7 @@ export const rematchCancel = roomId => {
 }
 
 export const signToRoom = (roomId, color) => {
-  global.socket = io('http://localhost:8000')
+  global.socket = io(SERVER)
   socket.emit('sign', roomId, color)
 }
 

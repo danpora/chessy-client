@@ -25,7 +25,7 @@ class Board extends React.Component {
     const { orientedRowIndexs, orientedColIndexs } = getOrientedBoardIndexes(
       orientation,
     );
-
+    
     const BoardGrid = () =>
       orientedRowIndexs.map((row) => {
         return orientedColIndexs.map((col) => {

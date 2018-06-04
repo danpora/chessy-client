@@ -1,44 +1,55 @@
 $break-large: 769px;
 
+.gameWrapper {
+  display: inline-block;
+}
+
 .gameContainer {
   display: grid;
   height: 100%;
   width: 100vw; 
+  justify-content: center;
+  align-items: center;
   grid-template-columns: 100%;
-  grid-template-rows: 10% min-content 14%;
+  grid-template-rows: 10% min-content 7% 7%;
   grid-gap: 5px;
   grid-template-areas:
     'navArea'
     'board'
-    'deadPool';
+    'deadPool'
+    'tags';
 
   @media screen and (min-width: $break-large) {
-    display: grid;
+    display: inline-grid;
     height: 100%;
-    grid-template-columns: min-content minmax(100px, 20%);
-    grid-template-rows: auto 15%;
+    flex-direction: column;
+    grid-template-columns: 60%;
+    grid-template-rows: 6% 1fr 10% 10%;
     grid-gap: 15px;
+    grid-auto-flow: dense;
+
     grid-template-areas:
-      'board navArea '
-      'deadPool  .   ';
+      'tags'
+      'board '
+      'tags'
+      'deadPool';
   }
 }
 
 .board {
   width: 100%;
+  margin: auto;
   grid-area: board;
 }
 
 .deadPool {
-  width: 100%;
-  height: 100%;
   background-color: blue;
   grid-area: deadPool;
 }
 
 .nav {
-  width: 100%;
-  height: 100%;
+  padding: 2%;
+  border-bottom: 1px solid black;
   grid-area: navArea;
 }
 
@@ -72,4 +83,36 @@ $break-large: 769px;
 
 .arrows ~ .arrows {
   margin-left: 10px;
+}
+
+.gameTags {
+  display: flex;
+  justify-content: space-around;
+}
+
+.controlTagContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.userIcon {
+  width: 100%;
+  margin: auto;
+}
+
+.deadPool {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+.killedPiece {
+  height: 90%;
+}
+
+.killedPiecesLine {
+  display: flex;
+  justify-content: flex-start;
 }

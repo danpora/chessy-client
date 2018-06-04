@@ -158,6 +158,14 @@ class Game extends React.Component {
           history={this.props.history}
           timer={this.props.startTime}
         />
+        <GameTags
+          className={styles.gameTags}
+          moves={this.props.moves}
+          myColor={this.props.myColor}
+          isPeerConnected={this.props.isPeerConnected}
+          history={this.props.history}
+          timer={this.props.startTime}
+        />
       </div>
     );
   }
@@ -183,13 +191,6 @@ function ChessNav({
         moves={moves}
         history={history}
       />
-      {/* <GameTags
-        moves={moves}
-        myColor={myColor}
-        isPeerConnected={isPeerConnected}
-        history={history}
-        timer={timer}
-      /> */}
     </div>
   );
 }
@@ -198,13 +199,11 @@ function ButtonsBox({ onClick, iterate, rematch, moves, history }) {
   return (
     <div className={styles.controlBarContent}>
       <DropdownButton
+        id={'gameMainDropDown'}
         bsStyle={'primary'}
         noCaret
-        pullLeft
         className={'dropdown-menu-left'}
-        title={
-          <FontAwesomeIcon icon={['fas', 'align-justify']} size={'1.5x'} />
-        }
+        title={<FontAwesomeIcon icon={['fas', 'align-justify']} />}
       >
         <MenuItem
           eventKey="1"
@@ -238,40 +237,43 @@ function ButtonsBox({ onClick, iterate, rematch, moves, history }) {
         className={styles.chessNavButton}
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={['fab', 'nintendo-switch']} size={'1.5x'} />
+        <FontAwesomeIcon icon={['fab', 'nintendo-switch']} />
       </Button>
     </div>
   );
 }
 
-function GameTags({ moves, myColor, isPeerConnected, history, timer }) {
+function GameTags({
+  className,
+  moves,
+  myColor,
+  isPeerConnected,
+  history,
+  timer,
+}) {
   const connectionColor = isPeerConnected ? '#15c63c' : 'Tomato';
   const opponentColor = getOpponentColor(myColor);
 
   return (
-    <div className={styles.controlBarInfoTags}>
-      <div className={styles.controlTagContainer}>
-        <span className={styles.controlTagHeader}>You</span>
-        <span className={`fa-layers fa-fw ${styles.userIcon}`}>
-          <PlayerColorCircle playerColor={myColor} />
-        </span>
-      </div>
+    <div className={className}>
       <div className={styles.controlTagContainer}>
         <span className={styles.controlTagHeader}>Opponent</span>
         <span className={`fa-layers fa-fw ${styles.userIcon}`}>
-          <PlayerColorCircle playerColor={opponentColor} />
-          <FontAwesomeIcon
-            icon={['fas', 'circle']}
-            transform={'shrink-5 right-9 up-9'}
-            style={{ color: connectionColor }}
-          />
+          <div>
+            <PlayerColorCircle playerColor={opponentColor} />
+            <FontAwesomeIcon
+              icon={['fas', 'circle']}
+              transform={'shrink-5 right-9 up-9'}
+              style={{ color: connectionColor }}
+            />
+          </div>
         </span>
       </div>
       <div className={styles.controlTagContainer}>
         <span className={styles.controlTagHeader}>Moves</span>
-        <h1 className={styles.controlTagValue}>
+        <span className={styles.controlTagValue}>
           {history.isIterating ? history.moves : moves}
-        </h1>
+        </span>
       </div>
       <div className={styles.controlTagContainer}>
         <span className={styles.controlTagHeader}>Time</span>
@@ -279,7 +281,6 @@ function GameTags({ moves, myColor, isPeerConnected, history, timer }) {
           <Timer initTime={timer} />
         </div>
       </div>
-      <div className={styles.PlayersBox} />
     </div>
   );
 }
@@ -303,30 +304,28 @@ function PlayerColorCircle({ playerColor }) {
 function DeadPool({ className, whites, blacks }) {
   return (
     <Well className={className}>
-      <Row className={styles.killedPiecesLine}>
-        <Col>
-          {whites.map((piece) => {
-            return (
-              <Piece
-                elements={{ role: piece.role, color: piece.color }}
-                className={styles.killedPiece}
-              />
-            );
-          })}
-        </Col>
-      </Row>
-      <Row className={styles.killedPiecesLine}>
-        <Col>
-          {blacks.map((piece) => {
-            return (
-              <Piece
-                elements={{ role: piece.role, color: piece.color }}
-                className={styles.killedPiece}
-              />
-            );
-          })}
-        </Col>
-      </Row>
+      <div className={styles.killedPiecesLine}>
+        {whites.map((piece) => {
+          return (
+            <Piece
+              key={piece.role}
+              elements={{ role: piece.role, color: piece.color }}
+              className={styles.killedPiece}
+            />
+          );
+        })}
+      </div>
+      <div className={styles.killedPiecesLine}>
+        {blacks.map((piece) => {
+          return (
+            <Piece
+              key={piece.role}
+              elements={{ role: piece.role, color: piece.color }}
+              className={styles.killedPiece}
+            />
+          );
+        })}
+      </div>
     </Well>
   );
 }

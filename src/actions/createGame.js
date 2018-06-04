@@ -1,7 +1,7 @@
 import { RSAA } from 'redux-api-middleware';
 import { setTimeout } from 'timers';
 import { signToRoom, subscribeToGame } from '../service/socket';
-// const CHESS_SERVER = 'localhost:8000/game'
+import { SERVER } from '../config'
 
 export function createGame(myColor) {
   return (dispatch) => {
@@ -25,7 +25,7 @@ export function createGame(myColor) {
 }
 
 function getNewGame() {
-  return fetch('http://localhost:8000/game/createGame');
+  return fetch(`${SERVER}/game/createGame`);
 }
 
 function createGameRequest() {
