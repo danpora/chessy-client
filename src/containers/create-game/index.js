@@ -53,9 +53,10 @@ const CreateSuccess = ({ gameId, recreate }) => {
 };
 const GameCreationMenu = (props) => {
   return (
-    <div>
+    <div className={styles.centered}>
+      <h1>Ready to play?</h1>
       <h2>To create a new game, press the 'Generate game' button</h2>
-      <Button onClick={props.onCreate}>Generate</Button>
+      <Button bsStyle={'warning'} className={styles.button} onClick={props.onCreate}>Generate</Button>
     </div>
   );
 };

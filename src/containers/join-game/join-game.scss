@@ -1,7 +1,18 @@
 $break-small: 450px;
 $break-large: 1000px;
 
-.wrapper {
-  display: grid;
-  grid-template-rows: 33% 33% 33%;
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.button {
+  padding: 30px;
+}
+
+.centered > * {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
