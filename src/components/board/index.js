@@ -10,6 +10,16 @@ class Board extends React.Component {
   }
 
   componentDidMount = () => {
+    this.updateBoardDimensions();
+    window.addEventListener('resize', this.updateBoardDimensions);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this.updateBoardDimensions)
+  }
+
+  updateBoardDimensions = () => {
+    console.log('resize')
     const gridHeight = this.gridRef.current.clientHeight;
     const gridWidth = this.gridRef.current.clientWidth;
     const sideLength = window.innerWidth < 750 
@@ -17,7 +27,7 @@ class Board extends React.Component {
     : Math.min(gridHeight, gridWidth || gridHeight)
     
     this.gridRef.current.style.width = sideLength + 'px';
-    this.gridRef.current.style.height = sideLength + 'px';    
+    this.gridRef.current.style.height = sideLength + 'px';
   }
 
   render() {
