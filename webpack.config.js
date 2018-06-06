@@ -8,8 +8,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
 });
 
 const envVars = new webpack.DefinePlugin({
-  'process.env.SERVER': JSON.stringify(process.env.SERVER),
-
+  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
 })
 
 module.exports = {

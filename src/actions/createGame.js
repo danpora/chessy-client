@@ -10,7 +10,7 @@ export function createGame(myColor) {
       .then((response) => response.json())
       .then((json) => {
         const gameId = json.gameId;
-        console.log('response', gameId);
+
         // TODO: check id validity
         dispatch({ type: 'CREATE_GAME::SUCCESS' });
         dispatch({ type: 'ROOM::SET_GAME_ID', payload: { gameId } });

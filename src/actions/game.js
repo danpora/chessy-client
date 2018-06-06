@@ -37,7 +37,6 @@ export function move(roomId, socketId, description) {
       .then(response => response.json())
       .then(json => {
         const isApproved = json.isApproved
-        console.log('---move----')
         if (isApproved) {
           // dispatch({
           //   type: 'GAME::MOVE',

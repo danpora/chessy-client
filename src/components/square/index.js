@@ -16,7 +16,6 @@ export const Square = props => {
 
 const SquareWrap = props => {
   const highlightClass = props.highlight && styles.highlight;
-  console.log('highlightClass::', highlightClass)
   
   return (
     <div 
