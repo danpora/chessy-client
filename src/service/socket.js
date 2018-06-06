@@ -10,8 +10,6 @@ export const subscribeToGame = (dispatch) => {
   })
   
   socket.on('start', payload => {
-    console.log('START!!')
-    
     dispatch({ type: 'CREATE_GAME::SHOULD_START_GAME'})
     dispatch({ type: 'GAME::INIT_TIMER' })
   })
@@ -37,7 +35,6 @@ export const subscribeToGame = (dispatch) => {
   })
 
   socket.on('rematchResponse', response => {
-    console.log('--rematchResponse!--')
     dispatch({ type: 'GAME::REMATCH_RESPONSE_RECEIVED', payload: { response }})
     dispatch({ type: 'GAME::INIT_TIMER' })
   })

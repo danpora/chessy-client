@@ -29,7 +29,7 @@
     "build": "webpack",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "sync": "aws --profile dpt-private s3 sync dist/ s3://chessy-client",
+    "sync": "aws --profile dpt-private s3 sync dist/ s3://chessy.xyz",
     "deploy": "npm run build && npm run sync"
   },
   "husky": {},
