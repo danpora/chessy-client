@@ -1,10 +1,10 @@
 import React from 'react';
 import Construction from '../construction';
 
-const About = () => {
+const Donate = () => {
   return (
-    <Construction title={'About Page'} />
+    <Construction title={'Donate Page'} />
   );
 };
 
-export default About;
+export default Donate;

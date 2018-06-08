@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/createGame';
 import styles from './CreateGame.scss';
-import * as Service from '../../service/socket';
-import { WaitForPeer } from '../../components/create-game/WaitForPeer';
-import { Button, Well, Alert, Panel } from 'react-bootstrap';
+import { Button, Well } from 'react-bootstrap';
 
 class CreateGame extends React.Component {
   componentWillReceiveProps = (nextProps) => {
