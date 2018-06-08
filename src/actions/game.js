@@ -1,4 +1,4 @@
-import { RSAA } from 'redux-api-middleware'; // RSAA = '@@redux-api-middleware/RSAA'
+import { RSAA } from 'redux-api-middleware';
 import * as SocketService from '../service/socket'
 import room from '../reducers/room';
 import { SERVER } from '../config'
@@ -59,6 +59,7 @@ export const setEatenPieces = selectedPiece => {
 }
 
 export const iterate = (gameId, moveTo) => {
+  debugger
   return {
     [RSAA]: {
       endpoint: `${SERVER}/game/${gameId}/board/${moveTo}`,
