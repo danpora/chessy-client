@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import styles from './NotFound.scss';
+
 const NotFoundPage = () => {
   return (
-    <div>
-      <h4>
+    <div className={styles.wrapper}>
+      <h2>
         404 Page Not Found
-      </h4>
-      <Link to="/"> Go back to homepage </Link>
+      </h2>
+      <i className="fas fa-exclamation fa-5x"></i>
     </div>
   );
 };
