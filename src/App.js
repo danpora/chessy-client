@@ -18,6 +18,8 @@ import { Header } from './components/header'
 
 fontawesome.library.add(brands, solids);
 
+import '../favicon.ico';
+
 import styles from './App.scss';
 
 class App extends Component {
