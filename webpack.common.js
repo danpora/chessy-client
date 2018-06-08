@@ -1,15 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack')
 
 const htmlPlugin = new HtmlWebpackPlugin({
   template: './public/index.html',
-  filename: './index.html'
+  filename: './index.html',
 });
-
-const envVars = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-})
 
 module.exports = {
   entry: './src/index.js',
@@ -24,8 +19,8 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /(\.css|\.scss)$/,
@@ -34,26 +29,23 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              module: true
-            }
+              module: true,
+            },
           },
           {
             loader: 'sass-loader',
             options: {
               includePaths: [path.resolve(__dirname, 'src', 'scss')],
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader']
-      }
-    ]
+        use: ['file-loader'],
+      },
+    ],
   },
-  plugins: [
-    htmlPlugin,
-    envVars
-  ]
+  plugins: [htmlPlugin],
 };
