@@ -42,9 +42,17 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|gif|ico)$/,
+        test: /\.(png|svg|jpg|gif)$/,
         use: ['file-loader'],
       },
+      {
+        test: /\.(ico)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+          context: ''
+        }
+      }
     ],
   },
   plugins: [htmlPlugin],
