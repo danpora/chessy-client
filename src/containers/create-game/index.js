@@ -68,7 +68,7 @@ const GameCreationMenu = (props) => {
   return (
     <React.Fragment>
       <h1>Ready to play?</h1>
-      <h2>To create a new game, press the 'Generate game' button</h2>
+      <h2>In order a new game, press the button below</h2>
       <Button
         bsStyle={'warning'}
         className={styles.button}
