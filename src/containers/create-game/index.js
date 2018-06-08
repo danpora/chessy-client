@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/createGame';
-import styles from './styles.scss';
+import styles from './CreateGame.scss';
 import * as Service from '../../service/socket';
 import { WaitForPeer } from '../../components/create-game/WaitForPeer';
 import { Button, Well, Alert, Panel } from 'react-bootstrap';
@@ -44,23 +44,17 @@ class CreateGame extends React.Component {
 }
 
 const Fetching = () => {
-  return <h3>Loading..</h3>;
+  return <i className="fas fa-asterisk fa-spin fa-3x"></i>
 };
 
 const CreateSuccess = ({ gameId, recreate }) => {
   return (
     <React.Fragment>
       <h3>Game created successfully!</h3>
-      <Alert>
-        Share the identifier below with your peer, and wait for him to connect
-      </Alert>
-      <Panel bsStyle={'success'}>
-        <Panel.Heading>Game identifier</Panel.Heading>
-        <Panel.Body>{gameId}</Panel.Body>
-      </Panel>
-      <Button className={styles.button} onClick={recreate}>
-        Recreate
-      </Button>
+      <span>
+        Share the identifier below with your peer. Waiting for connection..
+      </span>
+      <Well className={styles.fullWidth}>{gameId}</Well>
     </React.Fragment>
   );
 };
@@ -68,13 +62,13 @@ const GameCreationMenu = (props) => {
   return (
     <React.Fragment>
       <h1>Ready to play?</h1>
-      <h2>In order a new game, press the button below</h2>
+      <h2>In order to create a new game, press the button below</h2>
       <Button
         bsStyle={'warning'}
         className={styles.button}
         onClick={props.onCreate}
       >
-        Generate
+        Create now
       </Button>
     </React.Fragment>
   );
