@@ -4,6 +4,10 @@
   flex-direction: row;
   width: fit-content;
   margin: auto;
+  color: inherit;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .appName {

@@ -11,11 +11,11 @@ export function Footer(props) {
           <div>Home</div>
         </NavLink>
         {' | '}
-        <NavLink exact to="/" >
+        <NavLink exact to="/about" >
           <div>About</div>
         </NavLink>
         {' | '}
-        <NavLink exact to="/" >
+        <NavLink exact to="/donate" >
           <div>Donate</div>
         </NavLink>
       </div>

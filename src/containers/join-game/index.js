@@ -5,9 +5,6 @@ import { bindActionCreators } from 'redux';
 import { Button, FormGroup, FormControl, Col, Form } from 'react-bootstrap';
 import * as actions from '../../actions/joinGame';
 import styles from './JoinGame.scss';
-import featureStyle from '../../styles/feature.scss';
-import * as Service from '../../service/socket';
-import classnames from 'classnames';
 
 class JoinGame extends React.Component {
   constructor(props) {

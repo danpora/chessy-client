@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Grid, Row, Col } from 'react-bootstrap';
-import { Switch, NavLink, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import HomePage from './containers/homepage';
 import CreateGame from './containers/create-game';
 import Game from './containers/game';
-import AboutPage from './components/about';
+import About from './components/about';
+import Donate from './components/donate';
+import Machine from './components/machine';
 import NotFoundPage from './components/not-found';
 import JoinGame from './containers/join-game';
 
 import fontawesome from '@fortawesome/fontawesome';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import brands from '@fortawesome/fontawesome-free-brands';
 import solids from '@fortawesome/fontawesome-free-solid';
 
@@ -40,6 +40,9 @@ function Content(props) {
         <Route exact path="/create" component={CreateGame} />
         <Route exact path="/join" component={JoinGame} />
         <Route exact path="/game" component={Game} />
+        <Route exact path="/machine" component={Machine} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/donate" component={Donate} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
