@@ -4,21 +4,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/game';
-import {
-  getInitializedBoard,
-} from '../../components/board/utils';
-import {
-  Button,
-  Well,
-  DropdownButton,
-  MenuItem,
-} from 'react-bootstrap';
+import { getInitializedBoard } from '../../components/board/utils';
+import { Button, Well, DropdownButton, MenuItem } from 'react-bootstrap';
 
 import * as ChessEngine from './engine';
 import * as Utils from './utils';
 import styles from './game.scss';
 import { Piece } from '../../components/piece';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
+
 import {
   DialogRequestReceiver,
   DialogRequestSender,
@@ -193,10 +188,7 @@ function ButtonsBox({ onClick, iterate, rematch }) {
         className={'dropdown-menu-left'}
         title={<FontAwesomeIcon icon={['fas', 'align-justify']} />}
       >
-        <MenuItem
-          eventKey="1"
-          onClick={rematch}
-        >
+        <MenuItem eventKey="1" onClick={rematch}>
           Rematch
         </MenuItem>
         <MenuItem eventKey="2" onClick={iterate.bind(null, -1)}>
@@ -248,8 +240,8 @@ function GameTags({
           <div>
             <PlayerColorCircle playerColor={opponentColor} />
             <FontAwesomeIcon
-              icon={['fas', 'circle']}
-              transform={'shrink-5 right-9 up-9'}
+              icon={faCircle}
+              transform={'shrink-5 right-8 up-8'}
               style={{ color: connectionColor }}
             />
           </div>
@@ -277,14 +269,7 @@ const getOpponentColor = (myColor) => {
 
 function PlayerColorCircle({ playerColor }) {
   const faStyle = playerColor === 'white' ? 'far' : 'fas';
-
-  return (
-    <FontAwesomeIcon
-      icon={[faStyle, 'circle']}
-      size={'2x'}
-      transform={'shrink-5'}
-    />
-  );
+  return <i className={`${faStyle} fa-circle fa-lg`}/>;
 }
 
 function DeadPool({ className, whites, blacks }) {
@@ -352,4 +337,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Game);

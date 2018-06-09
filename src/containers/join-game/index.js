@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, FormGroup, FormControl, Col, Form } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import * as actions from '../../actions/joinGame';
 import styles from './JoinGame.scss';
 
@@ -23,7 +23,7 @@ class JoinGame extends React.Component {
   };
 
   onJoin = () => {
-    const { gameId, history } = this.props;
+    const { gameId } = this.props;
     this.props.actions.joinGame(gameId);
   };
 
