@@ -5,16 +5,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/game';
 import {
-  getEmptyBoard,
   getInitializedBoard,
 } from '../../components/board/utils';
 import {
   Button,
-  ButtonGroup,
-  Label,
-  Row,
-  Col,
-  Grid,
   Well,
   DropdownButton,
   MenuItem,
@@ -23,11 +17,8 @@ import {
 import * as ChessEngine from './engine';
 import * as Utils from './utils';
 import styles from './game.scss';
-import classnames from 'classnames';
 import { Piece } from '../../components/piece';
-import { PLAYER_COLOR_NUM } from './constants';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { rematch } from '../../service/socket';
 import {
   DialogRequestReceiver,
   DialogRequestSender,
@@ -175,12 +166,9 @@ function ChessNav({
   className,
   toggleOrientation,
   moves,
-  myColor,
-  isPeerConnected,
   iterate,
   history,
   rematch,
-  timer,
 }) {
   return (
     <div className={className}>
@@ -195,7 +183,7 @@ function ChessNav({
   );
 }
 
-function ButtonsBox({ onClick, iterate, rematch, moves, history }) {
+function ButtonsBox({ onClick, iterate, rematch }) {
   return (
     <div className={styles.controlBarContent}>
       <DropdownButton
@@ -207,9 +195,7 @@ function ButtonsBox({ onClick, iterate, rematch, moves, history }) {
       >
         <MenuItem
           eventKey="1"
-          onClick={() => {
-            rematch;
-          }}
+          onClick={rematch}
         >
           Rematch
         </MenuItem>
