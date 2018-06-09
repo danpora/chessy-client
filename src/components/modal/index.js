@@ -31,6 +31,27 @@ const CancelButton = ({ onClick }) => (
   <Button onClick={onClick}>Cancel</Button>
 )
 
+export const DialogResignRequest = ({ className, show, response }) => {
+  return (
+    <DialogWrap
+      className={className}
+      show={show}
+      content={
+        <ModalDialog
+          title={'Resign'}
+          body={'Are you sure you want to resign from game?'}
+          footer={
+            [
+              <AcceptButton key={1} onClick={response.bind(null, true)} />,
+              <CancelButton key={2} onClick={response.bind(null, false)} />
+            ]
+          }
+        />
+      }
+    />
+  );
+}
+
 export const DialogRequestReceiver = ({ className, show, response }) => {
   return (
     <DialogWrap

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/game';
 import { getInitializedBoard } from '../../components/board/utils';
 import { Button, Well, DropdownButton, MenuItem } from 'react-bootstrap';
-
+import { withRouter } from 'react-router'
 import * as ChessEngine from './engine';
 import * as Utils from './utils';
 import styles from './game.scss';
@@ -17,6 +17,7 @@ import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
 import {
   DialogRequestReceiver,
   DialogRequestSender,
+  DialogResignRequest,
 } from '../../components/modal';
 import Timer from '../../containers/timer';
 import Chess from 'chess.js';
@@ -25,6 +26,14 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.engine = new Chess();
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.resign.opponentResigned) {
+      debugger
+      this.props.actions.restartApp();
+      this.props.history.push('/');
+    }
   }
 
   componentWillMount = () => {
@@ -85,6 +94,17 @@ class Game extends React.Component {
     this.props.actions.rematchRequest(roomId);
   };
 
+  handleResignResponse = (response) => {
+    const { roomId } = this.props;
+    
+    if (response) {
+      this.props.actions.finishGame(roomId);
+      this.props.history.push('/');
+    } else {
+      this.props.actions.resignRequest(false);
+    }
+  }
+
   rematchResponse = (response) => {
     const { roomId } = this.props;
     this.props.actions.rematchResponse(roomId, response);
@@ -121,6 +141,11 @@ class Game extends React.Component {
           show={this.props.rematch.sent}
           onRematchCancel={this.onRematchCancel}
         />
+        <DialogResignRequest
+          className={styles.dialog}
+          show={this.props.resign.showPrompt}
+          response={this.handleResignResponse}
+        />
         <Board
           className={styles.board}
           matrix={this.props.matrix}
@@ -141,6 +166,7 @@ class Game extends React.Component {
           isPeerConnected={this.props.isPeerConnected}
           iterate={this.iterate}
           rematch={this.rematch}
+          resign={this.props.actions.resignRequest.bind(null, true)}
           history={this.props.history}
           timer={this.props.startTime}
         />
@@ -164,6 +190,7 @@ function ChessNav({
   iterate,
   history,
   rematch,
+  resign,
 }) {
   return (
     <div className={className}>
@@ -171,6 +198,7 @@ function ChessNav({
         onClick={toggleOrientation}
         iterate={iterate}
         rematch={rematch}
+        resign={resign}
         moves={moves}
         history={history}
       />
@@ -178,7 +206,7 @@ function ChessNav({
   );
 }
 
-function ButtonsBox({ onClick, iterate, rematch }) {
+function ButtonsBox({ onClick, iterate, rematch, resign }) {
   return (
     <div className={styles.controlBarContent}>
       <DropdownButton
@@ -191,7 +219,7 @@ function ButtonsBox({ onClick, iterate, rematch }) {
         <MenuItem eventKey="1" onClick={rematch}>
           Rematch
         </MenuItem>
-        <MenuItem eventKey="2" onClick={iterate.bind(null, -1)}>
+        <MenuItem eventKey="2" onClick={resign}>
           Resign
         </MenuItem>
       </DropdownButton>
@@ -269,7 +297,7 @@ const getOpponentColor = (myColor) => {
 
 function PlayerColorCircle({ playerColor }) {
   const faStyle = playerColor === 'white' ? 'far' : 'fas';
-  return <i className={`${faStyle} fa-circle fa-lg`}/>;
+  return <i className={`${faStyle} fa-circle fa-lg`} />;
 }
 
 function DeadPool({ className, whites, blacks }) {
@@ -328,6 +356,7 @@ function mapStateToProps(state) {
     moveOptions: state.game.moveOptions,
     highlightSquares: state.game.highlightSquares,
     startTime: state.game.startTime,
+    resign: state.game.resign,
   };
 }
 
@@ -337,7 +366,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const GameWithRouter = withRouter(Game);
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Game);
+)(GameWithRouter);
