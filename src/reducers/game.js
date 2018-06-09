@@ -31,7 +31,7 @@ const initialState = {
     received: false,
     approved: false
   },
-  history: {
+  playHistory: {
     isIterating: false,
     move: 0
   },
@@ -112,14 +112,14 @@ export default handleActions({
 
   'GAME::SET_MOVES_COUNT'(state, action) {
     const { updatedMoves } = action.payload
-    const { history } = state
+    const { playHistory } = state
     const isMyTurn = ChessEngine.isMyTurn(updatedMoves, state.myColor)
-    const updatedHistoryMoves = history.isIterating ? history.moves : updatedMoves
+    const updatedHistoryMoves = playHistory.isIterating ? playHistory.moves : updatedMoves
 
     return update(state, {
       isMyTurn: { $set: isMyTurn },
       moves: { $set: updatedMoves },
-      history: {
+      playHistory: {
         moves: { $set: updatedHistoryMoves }
       }
     })
@@ -145,7 +145,7 @@ export default handleActions({
 
   'GAME::MOVE'(state, action) {
     const { description: { source, target } } = action.payload
-    const { isMyTurn, myColor, moves, history } = state
+    const { isMyTurn, myColor, moves, playHistory } = state
 
     let hightlightSquareUpdate = state
 
@@ -167,7 +167,7 @@ export default handleActions({
       })
     }
 
-    if (history.isIterating) {
+    if (playHistory.isIterating) {
       return updateEatenPieceState
     }
 
@@ -237,7 +237,7 @@ export default handleActions({
 
     return update(state, {
       matrix: { $set: board },
-      history: {
+      playHistory: {
         isIterating: { $set: isIterating },
         moves: { $set: moveTo }
       },

@@ -30,7 +30,6 @@ class Game extends React.Component {
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.resign.opponentResigned) {
-      debugger
       this.props.actions.restartApp();
       this.props.history.push('/');
     }
@@ -42,7 +41,10 @@ class Game extends React.Component {
   };
 
   onSquareClick = ({ ...targetSquareInfo }) => {
-    const { myColor, mySelections } = this.props;
+    const { myColor, mySelections, playHistory } = this.props;
+
+    if (playHistory.isIterating) return;
+    
     const actionFlags = Utils.getActionFlags(
       targetSquareInfo.elements,
       myColor,
@@ -111,8 +113,8 @@ class Game extends React.Component {
   };
 
   iterate = (offset) => {
-    const { moves, roomId, history } = this.props;
-    const moveTo = history.moves + offset;
+    const { moves, roomId, playHistory } = this.props;
+    const moveTo = playHistory.moves + offset;
 
     if (moveTo < 0 || moveTo > moves) return;
 
@@ -125,7 +127,7 @@ class Game extends React.Component {
   };
 
   render() {
-    const highlightSquares = this.props.history.isIterating
+    const highlightSquares = this.props.playHistory.isIterating
       ? []
       : this.props.highlightSquares;
 
@@ -167,7 +169,7 @@ class Game extends React.Component {
           iterate={this.iterate}
           rematch={this.rematch}
           resign={this.props.actions.resignRequest.bind(null, true)}
-          history={this.props.history}
+          playHistory={this.props.playHistory}
           timer={this.props.startTime}
         />
         <GameTags
@@ -175,7 +177,7 @@ class Game extends React.Component {
           moves={this.props.moves}
           myColor={this.props.myColor}
           isPeerConnected={this.props.isPeerConnected}
-          history={this.props.history}
+          playHistory={this.props.playHistory}
           timer={this.props.startTime}
         />
       </div>
@@ -188,7 +190,7 @@ function ChessNav({
   toggleOrientation,
   moves,
   iterate,
-  history,
+  playHistory,
   rematch,
   resign,
 }) {
@@ -200,7 +202,6 @@ function ChessNav({
         rematch={rematch}
         resign={resign}
         moves={moves}
-        history={history}
       />
     </div>
   );
@@ -254,7 +255,7 @@ function GameTags({
   moves,
   myColor,
   isPeerConnected,
-  history,
+  playHistory,
   timer,
 }) {
   const connectionColor = isPeerConnected ? '#15c63c' : 'Tomato';
@@ -278,7 +279,7 @@ function GameTags({
       <div className={styles.controlTagContainer}>
         <span className={styles.controlTagHeader}>Moves</span>
         <span className={styles.controlTagValue}>
-          {history.isIterating ? history.moves : moves}
+          {playHistory.isIterating ? playHistory.moves : moves}
         </span>
       </div>
       <div className={styles.controlTagContainer}>
@@ -351,7 +352,7 @@ function mapStateToProps(state) {
     moves: state.game.moves,
     isPeerConnected: state.room.isPeerConnected,
     eatenPieces: state.game.eatenPieces,
-    history: state.game.history,
+    playHistory: state.game.playHistory,
     rematch: state.game.rematch,
     moveOptions: state.game.moveOptions,
     highlightSquares: state.game.highlightSquares,

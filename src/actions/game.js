@@ -59,7 +59,6 @@ export const setEatenPieces = (selectedPiece) => {
 };
 
 export const iterate = (gameId, moveTo) => {
-  debugger;
   return {
     [RSAA]: {
       endpoint: `${SERVER}/game/${gameId}/board/${moveTo}`,
