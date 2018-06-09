@@ -19,7 +19,6 @@ class Board extends React.Component {
   }
 
   updateBoardDimensions = () => {
-    console.log('resize')
     const gridHeight = this.gridRef.current.clientHeight;
     const gridWidth = this.gridRef.current.clientWidth;
     const sideLength = window.innerWidth < 750 

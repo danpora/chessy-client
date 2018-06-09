@@ -22,6 +22,10 @@ const initialState = {
   moveOptions: [],
   highlightSquares: [],
   startTime: 0,
+  resign: {
+    showPrompt: false,
+    opponentResigned: false,
+  },
   rematch: {
     sent: false,
     received: false,
@@ -117,6 +121,24 @@ export default handleActions({
       moves: { $set: updatedMoves },
       history: {
         moves: { $set: updatedHistoryMoves }
+      }
+    })
+  },
+
+  'GAME::OPPONENT_RESIGNED' (state, action) {
+    return update(state, {
+      resign: {
+        opponentResigned: { $set: true }
+      }
+    })
+  },
+
+  'GAME::RESIGN_REQUEST' (state, action) {
+    const { showPrompt } = action.payload;
+
+    return update(state, {
+      resign: {
+        showPrompt: { $set: showPrompt },
       }
     })
   },
@@ -231,6 +253,14 @@ export default handleActions({
     return update(state, {
       rematch: {
         received: { $set: true }
+      }
+    })
+  },
+
+  'GAME::REMATCH_CANCEL' (state, action) {
+    return update(state, {
+      rematch: {
+        sent: { $set: false }
       }
     })
   },
