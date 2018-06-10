@@ -14,10 +14,11 @@
     crossorigin="anonymous">
 
   <style>
-    html, body {
+    html,
+    body {
       height: 100%;
     }
-    
+
     .loader {
       display: flex;
       justify-content: center;
@@ -26,17 +27,40 @@
       animation: spin 5s infinite linear;
     }
 
+    .spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 100px;
+      border-left: 10px solid #c3dda5;
+      border-radius: 100%;
+    }
+
+    .reverse-spinner {
+      padding: 10px;
+      animation: antispin 5s infinite linear
+    }
+
+    .loader-text {
+      font-size: 19px;
+    }
+
     @keyframes spin {
       0% {
-        font-size: 20px
+        transform: rotate(0deg);
       }
-
-      50% {
-        font-size: 40px
-      }
-
       100% {
-        font-size: 20px;
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes antispin {
+      0% {
+        transform: rotate(360deg);
+      }
+      100% {
+        transform: rotate(0deg);
       }
     }
   </style>
@@ -45,16 +69,21 @@
 </head>
 
 <body>
+
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
+
   <div id="root" style="height: 100%;">
     <div class="loader">
-      <span>
-        Loading...
-      </span>
+      <div class="spinner">
+        <div class="reverse-spinner">
+          <span class="loader-text">loading..</span>
+        </div>
+      </div>
     </div>
   </div>
+
 </body>
 
 </html>
