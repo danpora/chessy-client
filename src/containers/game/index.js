@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/game';
 import { getInitializedBoard } from '../../components/board/utils';
 import { Button, Well, DropdownButton, MenuItem } from 'react-bootstrap';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 import * as ChessEngine from './engine';
 import * as Utils from './utils';
 import styles from './game.scss';
@@ -25,15 +25,35 @@ import Chess from 'chess.js';
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.engine = new Chess();
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.resign.opponentResigned) {
+  componentDidUpdate = (prevProps) => {
+    if (this.props.isNewGame) {
+      this.engine = new Chess();
+      this.props.actions.setIsNewGame(false);
+    }
+
+    if (this.props.resign.opponentResigned) {
       this.props.actions.restartApp();
       this.props.history.push('/');
     }
-  }
+    
+    if (
+      JSON.stringify(prevProps.lastOpponentMove) !==
+        JSON.stringify(this.props.lastOpponentMove) &&
+      Object.keys(this.props.lastOpponentMove).length &&
+      !this.props.isMyTurn
+    ) {
+      this.engine.move({
+        from: `${this.props.lastOpponentMove.source.location.col}${
+          this.props.lastOpponentMove.source.location.row
+        }`,
+        to: `${this.props.lastOpponentMove.target.col}${
+          this.props.lastOpponentMove.target.row
+        }`,
+      });
+    }
+  };
 
   componentWillMount = () => {
     const initializedBoard = getInitializedBoard(this.props.matrix);
@@ -44,7 +64,7 @@ class Game extends React.Component {
     const { myColor, mySelections, playHistory } = this.props;
 
     if (playHistory.isIterating) return;
-    
+
     const actionFlags = Utils.getActionFlags(
       targetSquareInfo.elements,
       myColor,
@@ -62,9 +82,18 @@ class Game extends React.Component {
       return;
     } else if (actionFlags.shouldUpdateOwnPieceSelection) {
       this.props.actions.setSourceSelection(col, row, selectedPiece);
-      // this.props.actions.loadAvailableTargets(col, row, piece)
+      const moveOptions = this.engine.moves({ square: `${col}${row}` }) || [];
+      const moveOptionsSquares = moveOptions.map(move => {
+        return move.match(/[a-h0-9]+/g) && move.match(/[a-h0-9]+/g).pop()
+      })
+
+      this.props.actions.highlightMoveOptions(moveOptionsSquares);
+
     } else if (actionFlags.shouldMoveToEmptySquare) {
+      if (!this.props.highlightMoveOptions.includes(`${col}${row}`)) return;
+      
       this.props.actions.setTargetSelection(selectedPiece, col, row);
+      this.props.actions.highlightMoveOptions([]);
       this.move(col, row, selectedPiece);
     } else if (actionFlags.shouldMoveToEnemySquare) {
       this.props.actions.setTargetSelection(selectedPiece, col, row);
@@ -84,7 +113,13 @@ class Game extends React.Component {
       socketId,
       roomId,
     } = this.props;
+
     const target = { col, row, piece };
+
+    const isMoveLegal = this.engine.move({
+      to: `${col}${row}`,
+      from: `${source.location.col}${source.location.row}`,
+    });
 
     if (ChessEngine.isValidMove(source, target)) {
       this.props.actions.move(roomId, socketId, { source, target });
@@ -98,14 +133,14 @@ class Game extends React.Component {
 
   handleResignResponse = (response) => {
     const { roomId } = this.props;
-    
+
     if (response) {
       this.props.actions.finishGame(roomId);
       this.props.history.push('/');
     } else {
       this.props.actions.resignRequest(false);
     }
-  }
+  };
 
   rematchResponse = (response) => {
     const { roomId } = this.props;
@@ -153,7 +188,8 @@ class Game extends React.Component {
           matrix={this.props.matrix}
           onClick={this.onSquareClick}
           orientation={this.props.orientation}
-          moveOptions={highlightSquares}
+          highLightSelections={highlightSquares}
+          highLightOptions={this.props.highlightMoveOptions}
         />
         <DeadPool
           className={styles.deadPool}
@@ -358,6 +394,9 @@ function mapStateToProps(state) {
     highlightSquares: state.game.highlightSquares,
     startTime: state.game.startTime,
     resign: state.game.resign,
+    lastOpponentMove: state.game.lastOpponentMove,
+    highlightMoveOptions: state.game.highlightMoveOptions,
+    isNewGame: state.game.isNewGame
   };
 }
 
