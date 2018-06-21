@@ -15,7 +15,7 @@ export const subscribeToGame = (dispatch) => {
   });
 
   socket.on('updatePlayerMove', (description) => {
-    dispatch({ type: 'GAME::MOVE', payload: { description } });
+    dispatch({ type: 'GAME::MOVE', payload: { description, isOpponent: true } });
   });
 
   socket.on('updatedMovesCount', (updatedMoves) => {

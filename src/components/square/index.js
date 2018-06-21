@@ -15,12 +15,12 @@ export const Square = props => {
 }
 
 const SquareWrap = props => {
-  const highlightClass = props.highlight && styles.highlight;
-  
+  const selectedClass = props.highlight.isSelected && styles.selectedHighlight;
+  const optionClass = props.highlight.isOption && styles.optionHighlight
   return (
     <div 
       id={`${props.location.col}${props.location.row}`}
-      className={`${styles[props.color]} ${highlightClass}`}
+      className={`${styles[props.color]} ${selectedClass} ${optionClass}`}
       onClick={props.onClick.bind(null, {
         row: props.location.row, 
         col: props.location.col, 

@@ -30,7 +30,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const { className, matrix, orientation, onClick, moveOptions } = this.props;
+    const { className, matrix, orientation, onClick, highLightSelections, highLightOptions} = this.props;
     const { orientedRowIndexs, orientedColIndexs } = getOrientedBoardIndexes(
       orientation,
     );
@@ -40,9 +40,12 @@ class Board extends React.Component {
         return orientedColIndexs.map((col) => {
           const squareColor = getSquareColor(col, row);
           const squareElements = matrix[row][col];
-          const shouldHighlight = moveOptions.some((square) => {
+          const isSelected = highLightSelections.some((square) => {
             return square === `${col}${row}`;
           });
+          const isOption = highLightOptions.some((square) => {
+            return square === `${col}${row}`;
+          })
 
           return (
             <Square
@@ -51,7 +54,7 @@ class Board extends React.Component {
               elements={squareElements}
               location={{ row, col }}
               onClick={onClick}
-              highlight={shouldHighlight}
+              highlight={{isSelected, isOption}}
             />
           );
         });

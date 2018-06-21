@@ -24,6 +24,20 @@ export function setTargetSelection(piece, col, row) {
   };
 }
 
+export function setIsNewGame(flag) {
+  return {
+    type: 'GAME::SET_IS_NEW_GAME',
+    payload: { flag }
+  }
+}
+
+export function highlightMoveOptions(options) {
+  return {
+    type: 'GAME::UPDATE_HIGHLIGHT_OPTIONS',
+    payload: { options },
+  };
+}
+
 export function setOrientation(orientation) {
   return {
     type: 'GAME::SET_ORIENTATION',
