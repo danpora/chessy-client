@@ -47,15 +47,17 @@ export function setOrientation(orientation) {
 
 export function move(roomId, socketId, description) {
   return (dispatch) => {
+    dispatch({
+      type: 'GAME::OWN_MOVE_REQUEST'
+    })
     return moveUpdate(roomId, socketId, description)
       .then((response) => response.json())
       .then((json) => {
         const isApproved = json.isApproved;
         if (isApproved) {
-          // dispatch({
-          //   type: 'GAME::MOVE',
-          //   payload: { description }
-          // })
+          dispatch({
+            type: 'GAME::OWN_MOVE_SUCCESS'
+          })
         } else {
           dispatch({
             type: 'GAME::MOVE_NOT_APPROVED',

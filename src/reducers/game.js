@@ -39,6 +39,7 @@ const initialState = {
   },
   loading: {
     board: false,
+    ownMove: false,
   },
   eatenPieces: {
     white: [],
@@ -160,6 +161,26 @@ export default handleActions(
 
       return update(state, {
         highlightMoveOptions: { $set: options },
+      });
+    },
+
+    'GAME::OWN_MOVE_REQUEST' (state, action) {
+      return update(state, {
+        loading: { 
+          ownMove: {
+            $set: true 
+          }
+        }
+      });
+    },
+
+    'GAME::OWN_MOVE_SUCCESS' (state, action) {
+      return update(state, {
+        loading: { 
+          ownMove: {
+            $set: false 
+          }
+        }
       });
     },
 

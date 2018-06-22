@@ -97,6 +97,7 @@ class Game extends React.Component {
       this.move(col, row, selectedPiece);
     } else if (actionFlags.shouldMoveToEnemySquare) {
       this.props.actions.setTargetSelection(selectedPiece, col, row);
+      this.props.actions.highlightMoveOptions([]);
       this.move(col, row, selectedPiece);
       // this.props.actions.setEatenPieces(selectedPiece)
     }
@@ -185,6 +186,7 @@ class Game extends React.Component {
         />
         <Board
           className={styles.board}
+          isLoading={this.props.loading}
           matrix={this.props.matrix}
           onClick={this.onSquareClick}
           orientation={this.props.orientation}
@@ -396,7 +398,8 @@ function mapStateToProps(state) {
     resign: state.game.resign,
     lastOpponentMove: state.game.lastOpponentMove,
     highlightMoveOptions: state.game.highlightMoveOptions,
-    isNewGame: state.game.isNewGame
+    isNewGame: state.game.isNewGame,
+    loading: state.game.loading
   };
 }
 
