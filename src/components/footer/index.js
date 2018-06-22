@@ -15,8 +15,8 @@ export function Footer(props) {
           <div>About</div>
         </NavLink>
         {' | '}
-        <NavLink exact to="/donate" >
-          <div>Donate</div>
+        <NavLink exact to="/github" >
+          <div>GitHub</div>
         </NavLink>
       </div>
     </div>

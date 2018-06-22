@@ -1,40 +1,49 @@
 import React from 'react';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { BOARD_INDEXES, SQUARE_COLOR, NORMAL_BOARD_PARAMS } from './constants';
 import { Square } from '../square';
 import styles from './board.scss';
 
 class Board extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.gridRef = React.createRef();
   }
 
   componentDidMount = () => {
     this.updateBoardDimensions();
     window.addEventListener('resize', this.updateBoardDimensions);
-  }
+  };
 
   componentWillUnmount = () => {
-    window.removeEventListener('resize', this.updateBoardDimensions)
-  }
+    window.removeEventListener('resize', this.updateBoardDimensions);
+  };
 
   updateBoardDimensions = () => {
     const gridHeight = this.gridRef.current.clientHeight;
     const gridWidth = this.gridRef.current.clientWidth;
-    const sideLength = window.innerWidth < 750 
-    ? Math.max(gridHeight, gridWidth || gridHeight)
-    : Math.min(gridHeight, gridWidth || gridHeight)
-    
+    const sideLength =
+      window.innerWidth < 750
+        ? Math.max(gridHeight, gridWidth || gridHeight)
+        : Math.min(gridHeight, gridWidth || gridHeight);
+
     this.gridRef.current.style.width = sideLength + 'px';
     this.gridRef.current.style.height = sideLength + 'px';
-  }
+  };
 
   render() {
-    const { className, matrix, orientation, onClick, highLightSelections, highLightOptions} = this.props;
+    const {
+      className,
+      matrix,
+      orientation,
+      onClick,
+      highLightSelections,
+      highLightOptions,
+    } = this.props;
     const { orientedRowIndexs, orientedColIndexs } = getOrientedBoardIndexes(
       orientation,
     );
-    
+
     const BoardGrid = () =>
       orientedRowIndexs.map((row) => {
         return orientedColIndexs.map((col) => {
@@ -45,7 +54,7 @@ class Board extends React.Component {
           });
           const isOption = highLightOptions.some((square) => {
             return square === `${col}${row}`;
-          })
+          });
 
           return (
             <Square
@@ -54,25 +63,35 @@ class Board extends React.Component {
               elements={squareElements}
               location={{ row, col }}
               onClick={onClick}
-              highlight={{isSelected, isOption}}
+              highlight={{ isSelected, isOption }}
             />
           );
         });
       });
 
+    const loaderClass = this.props.isLoading.ownMove ? 'loader' : null;
     return (
-      <div ref={this.gridRef} className={`${className} ${styles.boardContainer}`}>
+      <div
+        ref={this.gridRef}
+        className={`${className} ${styles.boardContainer} ${
+          styles[loaderClass]
+        }`}
+      >
         <BoardGrid />
+        {
+          this.props.isLoading.ownMove &&
+          <div className={styles.moveLoader}>
+            <FontAwesomeIcon
+              icon={['fas', 'spinner']}
+              size={'3x'}
+              spin
+            />
+          </div>
+        }
       </div>
     );
   }
 }
-
-export default Board;
-
-const BoardRow = (props) => {
-  return props.children;
-};
 
 const getOrientedBoardIndexes = (orientation) => ({
   orientedRowIndexs: orientation
@@ -94,7 +113,9 @@ const getSquareColor = (col, row) => {
     col,
     row,
   );
-  const squareIndexModulus = 1 - (normalizedCol + normalizedRow) % 2;
+  const squareIndexModulus = 1 - ((normalizedCol + normalizedRow) % 2);
 
   return SQUARE_COLOR[squareIndexModulus];
 };
+
+export default Board;

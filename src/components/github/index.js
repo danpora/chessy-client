@@ -1,10 +1,10 @@
 import React from 'react';
 import Construction from '../construction';
 
-const Donate = () => {
+const GitHub = () => {
   return (
-    <Construction title={'Donate Page'} />
+    <Construction title={'GitHub Page'} />
   );
 };
 
-export default Donate;
+export default GitHub;
