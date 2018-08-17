@@ -1,10 +1,10 @@
 # Chessy
 
-Just a simple, good old snake game.
+Simple multiplayer chess game.
 
-[Snaky demo](http://chessy.xyz)
+[Chessy demo](http://chessy.xyz)
 
-![chessy in action](https://danpora.github.io/train-sessions/snake/docs/snaky_screen.png)
+![chessy in action](https://danpora.github.io/chessy-client/media/chessy_screen.png)
 
 
 ## Built With
