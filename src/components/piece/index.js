@@ -8,7 +8,7 @@ export const Piece = (props) => {
     elements
       ? <img 
           className={className || styles.img}
-          src={require(`../../constants/pieces/${elements.color}_${elements.role}.png`)}
+          src={require(`../../assets/images/pieces/${elements.color}_${elements.role}.png`)}
         />
       : null
   )
