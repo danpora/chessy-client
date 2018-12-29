@@ -1,9 +1,9 @@
 import update from 'react-addons-update';
 import { handleActions } from 'redux-actions';
-import { PLAYER_COLOR_NUM } from '../containers/game/constants';
-import { getPieceState } from '../components/piece';
-import { getEmptyBoard, getInitializedBoard } from '../components/board/utils';
-import * as ChessEngine from '../containers/game/engine';
+import { PLAYER_COLOR_NUM } from './constants';
+import { getPieceState } from '../../components/piece';
+import { getEmptyBoard, getInitializedBoard } from '../../components/board/utils';
+import * as ChessEngine from './engine';
 
 const initialMySelection = {
   count: 0,

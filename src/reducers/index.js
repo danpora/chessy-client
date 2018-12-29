@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import game from './game';
-import createGame from './createGame'
-import joinGame from './joinGame'
+import game from '../containers/game/reducer';
+import createGame from '../containers/create-game/reducer';
+import joinGame from '../containers/join-game/reducer'
 import room from './room'
 import { routerReducer } from 'react-router-redux';
 
