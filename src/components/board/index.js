@@ -40,13 +40,13 @@ class Board extends React.Component {
       highLightSelections,
       highLightOptions,
     } = this.props;
-    const { orientedRowIndexs, orientedColIndexs } = getOrientedBoardIndexes(
+    const { orientedRowIndexes, orientedColIndexes } = getOrientedBoardIndexes(
       orientation,
     );
 
     const BoardGrid = () =>
-      orientedRowIndexs.map((row) => {
-        return orientedColIndexs.map((col) => {
+      orientedRowIndexes.map((row) => {
+        return orientedColIndexes.map((col) => {
           const squareColor = getSquareColor(col, row);
           const squareElements = matrix[row][col];
           const isSelected = highLightSelections.some((square) => {
@@ -94,10 +94,10 @@ class Board extends React.Component {
 }
 
 const getOrientedBoardIndexes = (orientation) => ({
-  orientedRowIndexs: orientation
+  orientedRowIndexes: orientation
     ? [...BOARD_INDEXES.row]
     : [...BOARD_INDEXES.row].reverse(),
-  orientedColIndexs: orientation
+  orientedColIndexes: orientation
     ? [...BOARD_INDEXES.col].reverse()
     : [...BOARD_INDEXES.col],
 });
