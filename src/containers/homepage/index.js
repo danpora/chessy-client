@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/createGame';
 import { Button, Row, Col } from 'react-bootstrap';
 
 import styles from './homepage.scss';

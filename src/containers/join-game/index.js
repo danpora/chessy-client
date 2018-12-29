@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
-import * as actions from '../../actions/joinGame';
+import * as actions from './actions';
 import styles from './JoinGame.scss';
 
 class JoinGame extends React.Component {

@@ -1,7 +1,7 @@
 import { RSAA } from 'redux-api-middleware';
 import { setTimeout } from 'timers';
-import { signToRoom, subscribeToGame } from '../service/socket';
-import { SERVER } from '../config'
+import { signToRoom, subscribeToGame } from '../../service/socket';
+import { SERVER } from '../../config'
 
 export function createGame(myColor) {
   return (dispatch) => {
