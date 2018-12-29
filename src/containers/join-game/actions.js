@@ -1,6 +1,6 @@
-import { signToRoom, subscribeToGame } from '../service/socket'
-import { PLAYER_COLOR_NUM } from '../containers/game/constants'
-import { SERVER } from '../config'
+import { signToRoom, subscribeToGame } from '../../service/socket'
+import { PLAYER_COLOR_NUM } from '../game/constants'
+import { SERVER } from '../../config'
 
 export function updateGameId(gameId) {
   return {

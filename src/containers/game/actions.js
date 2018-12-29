@@ -1,7 +1,7 @@
 import { RSAA } from 'redux-api-middleware';
-import * as SocketService from '../service/socket';
-import room from '../reducers/room';
-import { SERVER } from '../config';
+import * as SocketService from '../../service/socket';
+import room from '../../reducers/room';
+import { SERVER } from '../../config';
 
 export function initiateBoard(board) {
   return {

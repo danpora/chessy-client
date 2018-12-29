@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faClone from '@fortawesome/fontawesome-free-solid/faClone';
-import * as actions from '../../actions/createGame';
+import * as actions from './actions';
 import styles from './CreateGame.scss';
 import { Button, OverlayTrigger, Tooltip, InputGroup, FormControl } from 'react-bootstrap';
 
