@@ -1,10 +1,9 @@
 import React from 'react';
-import Board from 'chessy-board';
+import Board, { getInitializedBoard } from 'chessy-board';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions';
-import { getInitializedBoard } from '../../components/board/utils';
 import { Button, Well, DropdownButton, MenuItem } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import * as ChessEngine from './engine';
