@@ -9,7 +9,7 @@ import { withRouter } from 'react-router';
 import * as ChessEngine from './engine';
 import * as Utils from './utils';
 import styles from './game.scss';
-import { Piece } from '../../components/piece';
+import { Piece } from 'chessy-board';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faCircle from '@fortawesome/fontawesome-free-solid/faCircle';
 

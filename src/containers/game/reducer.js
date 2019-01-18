@@ -1,7 +1,7 @@
 import update from 'react-addons-update';
 import { handleActions } from 'redux-actions';
 import { PLAYER_COLOR_NUM } from './constants';
-import { getPieceState } from '../../components/piece';
+import { getPieceState } from 'chessy-board';
 import { getEmptyBoard, getInitializedBoard } from 'chessy-board';
 import * as ChessEngine from './engine';
 
