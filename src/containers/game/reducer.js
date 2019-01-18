@@ -2,7 +2,7 @@ import update from 'react-addons-update';
 import { handleActions } from 'redux-actions';
 import { PLAYER_COLOR_NUM } from './constants';
 import { getPieceState } from '../../components/piece';
-import { getEmptyBoard, getInitializedBoard } from '../../components/board/utils';
+import { getEmptyBoard, getInitializedBoard } from 'chessy-board';
 import * as ChessEngine from './engine';
 
 const initialMySelection = {
