@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from '../../components/board';
+import Board from 'chessy-board';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
