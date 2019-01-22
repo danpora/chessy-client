@@ -19,7 +19,7 @@ const HomeNav = ({ className }) => {
       />
       <NavButton title={'Join game'} route={'join'} className={styles.button} />
       <NavButton
-        title={'Player with computer'}
+        title={'Play with computer'}
         route={'machine'}
         className={styles.button}
       />
