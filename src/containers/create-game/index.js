@@ -5,18 +5,26 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faClone from '@fortawesome/fontawesome-free-solid/faClone';
 import * as actions from './actions';
 import styles from './CreateGame.scss';
-import { Button, OverlayTrigger, Tooltip, InputGroup, FormControl } from 'react-bootstrap';
+import {
+  Button,
+  OverlayTrigger,
+  Tooltip,
+  InputGroup,
+  FormControl,
+} from 'react-bootstrap';
 
 class CreateGame extends React.Component {
   constructor(props) {
     super(props);
     this.gameIdRef = React.createRef();
   }
+
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.isPeerConnected) {
       this.props.history.push('/game');
     }
   };
+
   createGame = () => {
     this.props.actions.createGame('white');
   };
@@ -27,33 +35,38 @@ class CreateGame extends React.Component {
     this.gameIdRef.blur();
   };
 
-  currentElement = () => {
-    if (this.props.isFetching) {
-      return <Fetching />;
-    }
-
-    if (this.props.error) {
-      return <Error />;
-    }
-
-    if (this.props.isGameCreated) {
-      return (
-        <CreateSuccess
-          handleGameIdCopy={this.handleGameIdCopy}
-          gameIdRef={(el) => (this.gameIdRef = el)}
-          gameId={this.props.gameId}
-          recreate={this.createGame}
-        />
-      );
-    }
-
-    return (
-      <GameCreationMenu onCreate={this.createGame} onReturn={this.returnHome} />
-    );
-  };
-
   render() {
-    return <div className={styles.centered}>{this.currentElement()}</div>;
+    return (
+      <div className={styles.centered}>
+        {(() => {
+          if (this.props.isFetching) {
+            return <Fetching />;
+          }
+
+          if (this.props.error) {
+            return <Error />;
+          }
+
+          if (this.props.isGameCreated) {
+            return (
+              <CreateSuccess
+                handleGameIdCopy={this.handleGameIdCopy}
+                gameIdRef={(el) => (this.gameIdRef = el)}
+                gameId={this.props.gameId}
+                recreate={this.createGame}
+              />
+            );
+          }
+
+          return (
+            <GameCreationMenu
+              onCreate={this.createGame}
+              onReturn={this.returnHome}
+            />
+          );
+        })()}
+      </div>
+    );
   }
 }
 
@@ -70,21 +83,23 @@ const CreateSuccess = ({ handleGameIdCopy, gameIdRef, gameId, recreate }) => {
       </span>
       <InputGroup className={styles.inputGroup}>
         <InputGroup.Button>
-            <OverlayTrigger
-              overlay={<Tooltip id={'create-copytocb'}>Copy to clipboard</Tooltip>}
-              placement="top"
-              delayShow={300}
-              delayHide={150}
+          <OverlayTrigger
+            overlay={
+              <Tooltip id={'create-copytocb'}>Copy to clipboard</Tooltip>
+            }
+            placement="top"
+            delayShow={300}
+            delayHide={150}
+          >
+            <Button
+              onClick={handleGameIdCopy}
+              style={{
+                boxShadow: 'none',
+              }}
             >
-              <Button
-                onClick={handleGameIdCopy}
-                style={{
-                  boxShadow: 'none',
-                }}
-              >
-                <FontAwesomeIcon icon={faClone} />
-              </Button>
-            </OverlayTrigger>{' '}
+              <FontAwesomeIcon icon={faClone} />
+            </Button>
+          </OverlayTrigger>{' '}
         </InputGroup.Button>
         <FormControl
           // readOnly
