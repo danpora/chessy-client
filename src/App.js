@@ -4,7 +4,6 @@ import HomePage from './containers/homepage';
 import CreateGame from './containers/create-game';
 import Game from './containers/game';
 import About from './components/about';
-import GitHub from './components/github';
 import Machine from './components/machine';
 import NotFoundPage from './components/not-found';
 import JoinGame from './containers/join-game';
@@ -44,7 +43,6 @@ function Content(props) {
         <Route exact path="/game" component={Game} />
         <Route exact path="/machine" component={Machine} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/github" component={GitHub} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
