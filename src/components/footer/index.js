@@ -15,9 +15,9 @@ export function Footer(props) {
           <div>About</div>
         </NavLink>
         {' | '}
-        <NavLink exact to="/github" >
+        <a href="https://github.com/danpora/chessy-client" >
           <div>GitHub</div>
-        </NavLink>
+        </a>
       </div>
     </div>
   );
