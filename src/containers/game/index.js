@@ -150,8 +150,8 @@ class Game extends React.Component {
   iterate = (offset) => {
     const { moves, roomId, playHistory } = this.props;
     const moveTo = playHistory.moves + offset;
-
-    if (moveTo < 0 || moveTo > moves) return;
+    
+    if (!moveTo || moveTo < 0 || moveTo > moves) return;
 
     this.props.actions.iterate(roomId, moveTo);
   };
