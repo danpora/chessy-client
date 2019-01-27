@@ -37,10 +37,7 @@ const initialState = {
     isIterating: false,
     move: 0,
   },
-  loading: {
-    board: false,
-    ownMove: false,
-  },
+  loading: false,
   eatenPieces: {
     white: [],
     black: [],
@@ -166,20 +163,16 @@ export default handleActions(
 
     'GAME::OWN_MOVE_REQUEST' (state, action) {
       return update(state, {
-        loading: { 
-          ownMove: {
-            $set: true 
-          }
+        loading: {
+          $set: true
         }
       });
     },
 
-    'GAME::OWN_MOVE_SUCCESS' (state, action) {
+    'GAME::OWN_MOVE_SUCCESS'(state, action) {
       return update(state, {
-        loading: { 
-          ownMove: {
-            $set: false 
-          }
+        loading: {
+          $set: false
         }
       });
     },
