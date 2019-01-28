@@ -38,6 +38,7 @@ $break-large: 769px;
 
 .board {
   width: 100%;
+  max-width: 515px;
   margin: auto;
   grid-area: board;
 }
