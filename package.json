@@ -9,7 +9,7 @@
     "@fortawesome/react-fontawesome": "0.0.17",
     "chess.js": "0.10.2",
     "chessy-board": "^0.7.13",
-    "node-sass": "4.9.0",
+    "node-sass": "4.13.1",
     "react": "16.7.0",
     "react-addons-update": "15.6.2",
     "react-bootstrap": "0.32.1",
